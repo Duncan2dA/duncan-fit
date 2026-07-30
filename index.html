@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#111827" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Duncan Fit" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="apple-touch-icon" href="icon.svg" />
+  <link rel="stylesheet" href="styles.css" />
+  <title>Duncan Fit</title>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">12 weken terug naar sterk</p>
+        <h1>Duncan Fit</h1>
+      </div>
+      <button id="resetBtn" class="icon-btn" aria-label="Gegevens wissen">↻</button>
+    </header>
+
+    <main>
+      <section id="homeView" class="view active">
+        <div class="hero-card">
+          <div>
+            <span class="pill">Week <span id="currentWeek">1</span></span>
+            <h2>Rustig opbouwen. Sterk terugkomen.</h2>
+            <p>Train met goede techniek en houd in de eerste weken 3–4 herhalingen over.</p>
+          </div>
+          <div class="progress-ring" aria-label="Weekvoortgang">
+            <span id="weekProgress">0%</span>
+          </div>
+        </div>
+
+        <section class="section-block">
+          <div class="section-heading">
+            <h3>Deze week</h3>
+            <button id="weekMinus" class="small-btn">−</button>
+            <button id="weekPlus" class="small-btn">+</button>
+          </div>
+          <div id="workoutCards" class="workout-grid"></div>
+        </section>
+
+        <section class="section-block">
+          <h3>Herstelregels</h3>
+          <div class="info-card">
+            <p><strong>Enkel:</strong> geen sprongen of explosieve box-oefeningen. Stop bij scherpe pijn of toenemende zwelling.</p>
+            <p><strong>Intensiteit:</strong> week 1–2 RIR 3–4, week 3–4 RIR 2–3, vanaf week 5 meestal RIR 1–2.</p>
+          </div>
+        </section>
+      </section>
+
+      <section id="workoutView" class="view">
+        <button id="backBtn" class="back-btn">← Overzicht</button>
+        <div class="workout-header">
+          <p id="workoutDay" class="eyebrow"></p>
+          <h2 id="workoutTitle"></h2>
+          <p id="workoutFocus"></p>
+        </div>
+        <div id="exerciseList"></div>
+        <button id="finishWorkout" class="primary-btn full">Training afronden</button>
+      </section>
+
+      <section id="progressView" class="view">
+        <h2>Voortgang</h2>
+        <div class="stats-grid">
+          <div class="stat-card"><span id="totalSessions">0</span><small>trainingen</small></div>
+          <div class="stat-card"><span id="totalSets">0</span><small>sets gelogd</small></div>
+          <div class="stat-card"><span id="streak">0</span><small>weken actief</small></div>
+        </div>
+        <div class="section-block">
+          <h3>Laatste trainingen</h3>
+          <div id="historyList" class="history-list"></div>
+        </div>
+      </section>
+    </main>
+
+    <nav class="bottom-nav">
+      <button class="nav-btn active" data-view="homeView">⌂<span>Schema</span></button>
+      <button class="nav-btn" data-view="progressView">▥<span>Voortgang</span></button>
+    </nav>
+  </div>
+
+  <div id="timerOverlay" class="timer-overlay hidden" role="dialog" aria-modal="true">
+    <div class="timer-card">
+      <p>Rusttijd</p>
+      <div id="timerDisplay">01:30</div>
+      <div class="timer-actions">
+        <button id="timerMinus" class="secondary-btn">−15 sec</button>
+        <button id="timerSkip" class="primary-btn">Klaar</button>
+        <button id="timerPlus" class="secondary-btn">+15 sec</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
