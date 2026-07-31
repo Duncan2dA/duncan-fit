@@ -1,101 +1,163 @@
 <!doctype html>
 <html lang="nl">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="theme-color" content="#111827" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <meta name="apple-mobile-web-app-title" content="Duncan Fit" />
-  <link rel="manifest" href="manifest.webmanifest" />
-  <link rel="apple-touch-icon" href="icon.svg" />
-  <link rel="stylesheet" href="styles.css" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0b0f14">
+  <meta name="color-scheme" content="dark">
+  <meta name="description" content="Duncans persoonlijke 12-weken trainingsapp voor spieropbouw.">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Duncan Fit">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="apple-touch-icon" href="./icon.svg">
+  <link rel="icon" href="./icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./styles.css">
   <title>Duncan Fit</title>
 </head>
 <body>
+  <div class="ambient" aria-hidden="true"></div>
   <div class="app-shell">
     <header class="topbar">
-      <div>
-        <p class="eyebrow">12 weken terug naar sterk</p>
-        <h1>Duncan Fit</h1>
-      </div>
-      <button id="resetBtn" class="icon-btn" aria-label="Gegevens wissen">↻</button>
+      <button class="brand" data-go="home" aria-label="Naar het overzicht">
+        <span class="brand-mark">DF</span>
+        <span><strong>Duncan Fit</strong><small>Terug naar sterk</small></span>
+      </button>
+      <button id="installButton" class="ghost-button compact hidden">Installeer app</button>
     </header>
 
     <main>
-      <section id="homeView" class="view active">
-        <div class="hero-card">
+      <section id="homeView" class="view active" aria-labelledby="homeTitle">
+        <div class="week-hero">
           <div>
-            <span class="pill">Week <span id="currentWeek">1</span></span>
-            <h2>Rustig opbouwen. Sterk terugkomen.</h2>
-            <p>Train met goede techniek en houd in de eerste weken 3–4 herhalingen over.</p>
+            <p id="phaseLabel" class="eyebrow"></p>
+            <h1 id="homeTitle">Week <span id="weekNumber">1</span></h1>
+            <p id="phaseDescription" class="lead"></p>
+            <div class="week-controls" aria-label="Week kiezen">
+              <button id="previousWeek" class="round-button" aria-label="Vorige week">â†</button>
+              <span id="weekCounter">1 van 12</span>
+              <button id="nextWeek" class="round-button" aria-label="Volgende week">â†’</button>
+            </div>
           </div>
-          <div class="progress-ring" aria-label="Weekvoortgang">
-            <span id="weekProgress">0%</span>
+          <div class="progress-orb" id="weekProgressOrb">
+            <strong id="weekProgress">0%</strong>
+            <span>afgerond</span>
           </div>
         </div>
 
-        <section class="section-block">
-          <div class="section-heading">
-            <h3>Deze week</h3>
-            <button id="weekMinus" class="small-btn">−</button>
-            <button id="weekPlus" class="small-btn">+</button>
-          </div>
-          <div id="workoutCards" class="workout-grid"></div>
-        </section>
+        <div id="resumeCard" class="resume-card hidden"></div>
 
-        <section class="section-block">
-          <h3>Herstelregels</h3>
-          <div class="info-card">
-            <p><strong>Enkel:</strong> geen sprongen of explosieve box-oefeningen. Stop bij scherpe pijn of toenemende zwelling.</p>
-            <p><strong>Intensiteit:</strong> week 1–2 RIR 3–4, week 3–4 RIR 2–3, vanaf week 5 meestal RIR 1–2.</p>
-          </div>
-        </section>
-      </section>
-
-      <section id="workoutView" class="view">
-        <button id="backBtn" class="back-btn">← Overzicht</button>
-        <div class="workout-header">
-          <p id="workoutDay" class="eyebrow"></p>
-          <h2 id="workoutTitle"></h2>
-          <p id="workoutFocus"></p>
+        <div class="section-heading">
+          <div><p class="eyebrow">Jouw schema</p><h2>Vier trainingen</h2></div>
+          <span id="completedCount" class="muted"></span>
         </div>
-        <div id="exerciseList"></div>
-        <button id="finishWorkout" class="primary-btn full">Training afronden</button>
+        <div id="workoutGrid" class="workout-grid"></div>
+
+        <article class="safety-card">
+          <span class="safety-icon">!</span>
+          <div>
+            <h3>Enkel eerst</h3>
+            <p>Geen sprongen of explosieve box-oefeningen in dit programma. Stop bij scherpe pijn, instabiliteit of toenemende zwelling. Vervang de oefening en overleg bij aanhoudende klachten met een arts of fysiotherapeut.</p>
+          </div>
+        </article>
       </section>
 
-      <section id="progressView" class="view">
-        <h2>Voortgang</h2>
+      <section id="workoutView" class="view" aria-labelledby="workoutTitle">
+        <button class="text-button back-button" data-go="home">â† Overzicht</button>
+        <div class="workout-heading">
+          <div>
+            <p id="workoutMeta" class="eyebrow"></p>
+            <h1 id="workoutTitle"></h1>
+            <p id="workoutSubtitle" class="lead"></p>
+          </div>
+          <div id="workoutCompletion" class="mini-progress">0/0 sets</div>
+        </div>
+        <div id="workoutNotice" class="phase-notice"></div>
+        <div id="exerciseList" class="exercise-list"></div>
+        <div class="finish-panel">
+          <p id="finishSummary">Vink je uitgevoerde sets af.</p>
+          <button id="finishWorkout" class="primary-button">Training afronden</button>
+        </div>
+      </section>
+
+      <section id="progressView" class="view" aria-labelledby="progressTitle">
+        <div class="page-heading">
+          <p class="eyebrow">Consistentie wint</p>
+          <h1 id="progressTitle">Voortgang</h1>
+        </div>
         <div class="stats-grid">
-          <div class="stat-card"><span id="totalSessions">0</span><small>trainingen</small></div>
-          <div class="stat-card"><span id="totalSets">0</span><small>sets gelogd</small></div>
-          <div class="stat-card"><span id="streak">0</span><small>weken actief</small></div>
+          <article><strong id="sessionStat">0</strong><span>trainingen</span></article>
+          <article><strong id="setStat">0</strong><span>sets</span></article>
+          <article><strong id="volumeStat">0</strong><span>kg volume</span></article>
         </div>
-        <div class="section-block">
-          <h3>Laatste trainingen</h3>
-          <div id="historyList" class="history-list"></div>
+        <article class="chart-card">
+          <div class="section-heading tight"><div><p class="eyebrow">Per week</p><h2>Trainingsvolume</h2></div></div>
+          <div id="volumeChart" class="volume-chart"></div>
+          <p class="chart-note">Volume = gewicht Ã— herhalingen. Alleen ingevulde en afgevinkte sets tellen mee.</p>
+        </article>
+        <div class="section-heading">
+          <div><p class="eyebrow">Logboek</p><h2>Laatste trainingen</h2></div>
         </div>
+        <div id="historyList" class="history-list"></div>
+        <button id="exportButton" class="secondary-button full-width">Maak reservekopie</button>
+        <label class="secondary-button full-width file-button">Zet reservekopie terug
+          <input id="importInput" type="file" accept="application/json">
+        </label>
+        <button id="resetButton" class="danger-button full-width">Wis alle gegevens</button>
+      </section>
+
+      <section id="infoView" class="view" aria-labelledby="infoTitle">
+        <div class="page-heading">
+          <p class="eyebrow">Zo gebruik je het</p>
+          <h1 id="infoTitle">Programma</h1>
+        </div>
+        <div id="phaseCards" class="phase-grid"></div>
+        <article class="content-card">
+          <h2>Progressie</h2>
+          <ol>
+            <li>Kies een gewicht waarmee je de voorgeschreven herhalingen technisch goed haalt.</li>
+            <li>Haal je alle sets aan de bovenkant van de herhalingsrange met de bedoelde RIR? Verhoog de volgende keer licht.</li>
+            <li>Richtlijn: +1â€“2 kg per dumbbell of +2,5â€“5% op de FT2. Bij isolatie-oefeningen mag Ã©Ã©n extra herhaling ook progressie zijn.</li>
+            <li>Week 4 en 8 zijn herstelweken: minder sets en ruim vÃ³Ã³r falen stoppen.</li>
+          </ol>
+        </article>
+        <article class="content-card">
+          <h2>Warming-up & herstel</h2>
+          <p>Start elke training met 6â€“8 minuten rustig fietsen op de Stages SB20. Doe daarna Ã©Ã©n of twee lichte aanloopsets voor de eerste grote oefening. Deze staan niet in je werksets en hoef je niet te loggen.</p>
+          <p>Slaap waar mogelijk 7â€“9 uur en mik voor spieropbouw op circa 1,6â€“2,0 gram eiwit per kilogram lichaamsgewicht per dag.</p>
+        </article>
+        <article class="content-card">
+          <h2>Pijnsignaal</h2>
+          <p>Normale spiervermoeidheid is prima; scherpe pijn, een instabiel gevoel of zwelling is dat niet. Stop dan met de oefening. Deze app vervangt geen persoonlijk medisch advies.</p>
+        </article>
       </section>
     </main>
 
-    <nav class="bottom-nav">
-      <button class="nav-btn active" data-view="homeView">⌂<span>Schema</span></button>
-      <button class="nav-btn" data-view="progressView">▥<span>Voortgang</span></button>
+    <nav class="bottom-nav" aria-label="Hoofdnavigatie">
+      <button class="nav-button active" data-view="home"><span>â–¦</span>Schema</button>
+      <button class="nav-button" data-view="progress"><span>â†—</span>Voortgang</button>
+      <button class="nav-button" data-view="info"><span>i</span>Uitleg</button>
     </nav>
   </div>
 
-  <div id="timerOverlay" class="timer-overlay hidden" role="dialog" aria-modal="true">
+  <div id="timerSheet" class="timer-sheet hidden" role="dialog" aria-modal="true" aria-labelledby="timerTitle">
     <div class="timer-card">
-      <p>Rusttijd</p>
-      <div id="timerDisplay">01:30</div>
+      <div class="timer-handle"></div>
+      <p class="eyebrow">Volgende set</p>
+      <h2 id="timerTitle">Rusttimer</h2>
+      <div id="timerDisplay" class="timer-display">01:30</div>
+      <div class="timer-progress"><span id="timerBar"></span></div>
       <div class="timer-actions">
-        <button id="timerMinus" class="secondary-btn">−15 sec</button>
-        <button id="timerSkip" class="primary-btn">Klaar</button>
-        <button id="timerPlus" class="secondary-btn">+15 sec</button>
+        <button id="timerMinus" class="secondary-button">âˆ’15 sec</button>
+        <button id="timerStop" class="primary-button">Klaar</button>
+        <button id="timerPlus" class="secondary-button">+15 sec</button>
       </div>
     </div>
   </div>
 
-  <script src="app.js"></script>
+  <div id="toast" class="toast hidden" role="status"></div>
+  <script src="./program.js"></script>
+  <script src="./app.js"></script>
 </body>
 </html>
+
