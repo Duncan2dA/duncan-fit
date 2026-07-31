@@ -83,7 +83,7 @@
     const percentage = Math.round((completed / PROGRAM.workouts.length) * 100);
     $("#weekNumber").textContent = week;
     $("#weekCounter").textContent = `${week} van 12`;
-    $("#phaseLabel").textContent = `${phase.title} Â· ${phase.rir}`;
+    $("#phaseLabel").textContent = `${phase.title} · ${phase.rir}`;
     $("#phaseDescription").textContent = phase.description;
     $("#weekProgress").textContent = `${percentage}%`;
     $("#weekProgressOrb").style.setProperty("--progress", `${percentage}%`);
@@ -101,7 +101,7 @@
           <span class="card-top"><span class="eyebrow">${workout.day}</span><span class="status-dot"></span></span>
           <h3>${escapeHtml(workout.title)}</h3>
           <p>${escapeHtml(workout.subtitle)}</p>
-          <small>${isDone ? "Afgerond" : doneSets ? `${doneSets}/${totalSets} sets Â· doorgaan` : `${workout.duration} Â· ${workout.exercises.length} oefeningen`}</small>
+          <small>${isDone ? "Afgerond" : doneSets ? `${doneSets}/${totalSets} sets · doorgaan` : `${workout.duration} · ${workout.exercises.length} oefeningen`}</small>
         </button>`;
     }).join("");
     $$(".workout-card").forEach(card => card.addEventListener("click", () => openWorkout(card.dataset.workout)));
@@ -123,7 +123,7 @@
       card.classList.add("hidden");
       return;
     }
-    card.innerHTML = `<button><strong>Ga verder met ${escapeHtml(workout.title)} â†’</strong><span>${completedSets(session)} sets gelogd in week ${active.week}</span></button>`;
+    card.innerHTML = `<button><strong>Ga verder met ${escapeHtml(workout.title)} →</strong><span>${completedSets(session)} sets gelogd in week ${active.week}</span></button>`;
     $("button", card).addEventListener("click", () => openWorkout(workout.id));
     card.classList.remove("hidden");
   }
@@ -135,7 +135,7 @@
     const session = getSession(state.currentWeek, workoutId, true);
     if (!session.completedAt) state.activeSession = { week: state.currentWeek, workoutId };
     saveState();
-    $("#workoutMeta").textContent = `Week ${state.currentWeek} Â· ${workout.day} Â· ${workout.duration}`;
+    $("#workoutMeta").textContent = `Week ${state.currentWeek} · ${workout.day} · ${workout.duration}`;
     $("#workoutTitle").textContent = workout.title;
     $("#workoutSubtitle").textContent = workout.subtitle;
     const phase = phaseForWeek(state.currentWeek);
@@ -156,18 +156,18 @@
       return `
         <div class="set-row ${value.done ? "done" : ""}">
           <span class="set-number">${setIndex + 1}</span>
-          <input type="text" inputmode="decimal" autocomplete="off" aria-label="Gewicht set ${setIndex + 1}" placeholder="${exercise.type === "time" ? "â€”" : "kg"}" value="${escapeAttr(value.weight || "")}" data-exercise="${exercise.id}" data-set="${setIndex}" data-field="weight" ${exercise.type === "time" ? "disabled" : ""}>
+          <input type="text" inputmode="decimal" autocomplete="off" aria-label="Gewicht set ${setIndex + 1}" placeholder="${exercise.type === "time" ? "—" : "kg"}" value="${escapeAttr(value.weight || "")}" data-exercise="${exercise.id}" data-set="${setIndex}" data-field="weight" ${exercise.type === "time" ? "disabled" : ""}>
           <input type="text" inputmode="numeric" autocomplete="off" aria-label="Herhalingen of tijd set ${setIndex + 1}" placeholder="${escapeAttr(exercise.reps)}" value="${escapeAttr(value.reps || "")}" data-exercise="${exercise.id}" data-set="${setIndex}" data-field="reps">
-          <button class="check-button ${value.done ? "done" : ""}" aria-label="Set ${setIndex + 1} afvinken" aria-pressed="${Boolean(value.done)}" data-check="${exercise.id}" data-set="${setIndex}">${value.done ? "âœ“" : "â—‹"}</button>
+          <button class="check-button ${value.done ? "done" : ""}" aria-label="Set ${setIndex + 1} afvinken" aria-pressed="${Boolean(value.done)}" data-check="${exercise.id}" data-set="${setIndex}">${value.done ? "✓" : "○"}</button>
         </div>`;
     }).join("");
     return `
       <article class="exercise-card" data-exercise-card="${exercise.id}">
         <div class="exercise-title-row">
-          <div><span class="exercise-index">OEFENING ${String(index + 1).padStart(2, "0")}${exercise.ankle ? " Â· ENKELBEWUST" : ""}</span><h2>${escapeHtml(exercise.name)}</h2></div>
+          <div><span class="exercise-index">OEFENING ${String(index + 1).padStart(2, "0")}${exercise.ankle ? " · ENKELBEWUST" : ""}</span><h2>${escapeHtml(exercise.name)}</h2></div>
           ${previous ? `<span class="previous-value">Vorige: ${escapeHtml(previous)}</span>` : ""}
         </div>
-        <p class="exercise-meta">${escapeHtml(exercise.equipment)} Â· ${sets} sets Â· ${escapeHtml(exercise.reps)}${exercise.rest ? ` Â· ${exercise.rest} sec rust` : ""}</p>
+        <p class="exercise-meta">${escapeHtml(exercise.equipment)} · ${sets} sets · ${escapeHtml(exercise.reps)}${exercise.rest ? ` · ${exercise.rest} sec rust` : ""}</p>
         <p class="exercise-tip">${escapeHtml(exercise.tip)}</p>
         <div class="set-labels"><span>Set</span><span>${exercise.type === "time" ? "Gewicht" : "Kg"}</span><span>${exercise.type === "time" ? "Tijd" : "Reps"}</span><span>Klaar</span></div>
         ${rows}
@@ -199,7 +199,7 @@
     sets[index].loggedAt = new Date().toISOString();
     button.classList.toggle("done", sets[index].done);
     button.closest(".set-row").classList.toggle("done", sets[index].done);
-    button.textContent = sets[index].done ? "âœ“" : "â—‹";
+    button.textContent = sets[index].done ? "✓" : "○";
     button.setAttribute("aria-pressed", String(sets[index].done));
     saveState();
     updateWorkoutProgress();
@@ -235,7 +235,7 @@
         const values = session?.sets?.[exerciseId]?.filter(set => set.done && (set.weight || set.reps));
         if (values?.length) {
           const best = [...values].reverse().find(set => set.weight) || values[values.length - 1];
-          return best.weight ? `${best.weight} kg Ã— ${best.reps || "â€”"}` : best.reps || "";
+          return best.weight ? `${best.weight} kg × ${best.reps || "—"}` : best.reps || "";
         }
       }
     }
@@ -268,14 +268,14 @@
     const ordered = sessions.sort((a, b) => new Date(b.completedAt) - new Date(a.completedAt));
     $("#historyList").innerHTML = ordered.length ? ordered.slice(0, 12).map(session => {
       const workout = PROGRAM.workouts.find(item => item.id === session.workoutId);
-      return `<article class="history-item"><div><strong>${escapeHtml(workout?.title || "Training")}</strong><small>Week ${session.week} Â· ${formatDate(session.completedAt)} Â· ${completedSets(session)} sets</small></div><span class="history-volume">${compactNumber(sessionVolume(session))} kg</span></article>`;
+      return `<article class="history-item"><div><strong>${escapeHtml(workout?.title || "Training")}</strong><small>Week ${session.week} · ${formatDate(session.completedAt)} · ${completedSets(session)} sets</small></div><span class="history-volume">${compactNumber(sessionVolume(session))} kg</span></article>`;
     }).join("") : `<div class="empty-state">Rond je eerste training af; dan verschijnt hier je logboek.</div>`;
   }
 
   function renderInfo() {
     $("#phaseCards").innerHTML = PROGRAM.phases.map(phase => `
       <article class="phase-card ${phase === phaseForWeek(state.currentWeek) ? "current" : ""}">
-        <p class="eyebrow">${phase.weeks} Â· ${phase.rir}</p>
+        <p class="eyebrow">${phase.weeks} · ${phase.rir}</p>
         <strong>${phase.title}</strong><span>${phase.description}</span>
       </article>`).join("");
   }
@@ -409,10 +409,9 @@
     installPrompt = null;
     $("#installButton").classList.add("hidden");
   });
-  window.addEventListener("appinstalled", () => toast("Duncan Fit is geÃ¯nstalleerd"));
+  window.addEventListener("appinstalled", () => toast("Duncan Fit is geïnstalleerd"));
   if ("serviceWorker" in navigator) {
     window.addEventListener("load", () => navigator.serviceWorker.register("./sw.js").catch(() => {}));
   }
   renderHome();
 })();
-
