@@ -1,4 +1,4 @@
-const CACHE_NAME = "duncan-fit-v2.0.0";
+const CACHE_NAME = "duncan-fit-v2.0.1";
 const APP_SHELL = [
   "./",
   "./index.html",
@@ -36,4 +36,3 @@ self.addEventListener("fetch", event => {
       .catch(() => caches.match(event.request).then(cached => cached || caches.match("./index.html")))
   );
 });
-
