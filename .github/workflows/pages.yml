@@ -1,15 +1,19 @@
-name: Deploy Duncan Fit
+name: Publiceer Duncan Fit
+
 on:
   push:
-    branches: [main]
+    branches: ["main"]
   workflow_dispatch:
+
 permissions:
   contents: read
   pages: write
   id-token: write
+
 concurrency:
   group: pages
   cancel-in-progress: true
+
 jobs:
   deploy:
     environment:
@@ -17,14 +21,15 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Broncode ophalen
         uses: actions/checkout@v4
-      - name: Configure Pages
+      - name: Pages instellen
         uses: actions/configure-pages@v5
-      - name: Upload site
+      - name: Website verpakken
         uses: actions/upload-pages-artifact@v3
         with:
           path: .
-      - name: Deploy
+      - name: Publiceren
         id: deployment
         uses: actions/deploy-pages@v4
+
