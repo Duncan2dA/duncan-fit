@@ -1,1 +1,21 @@
-{"name":"Duncan Fit","short_name":"Duncan Fit","start_url":"./","display":"standalone","background_color":"#0b1220","theme_color":"#111827","description":"Persoonlijke 12-weken trainingsapp","icons":[{"src":"icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}]}
+{
+  "id": "./",
+  "name": "Duncan Fit",
+  "short_name": "Duncan Fit",
+  "description": "Persoonlijk 12-weken trainingsprogramma voor spieropbouw.",
+  "lang": "nl-NL",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#0b0f14",
+  "theme_color": "#0b0f14",
+  "categories": ["fitness", "health", "sports"],
+  "icons": [{
+    "src": "./icon.svg",
+    "sizes": "any",
+    "type": "image/svg+xml",
+    "purpose": "any maskable"
+  }]
+}
+
