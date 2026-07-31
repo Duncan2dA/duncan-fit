@@ -34,9 +34,9 @@
             <h1 id="homeTitle">Week <span id="weekNumber">1</span></h1>
             <p id="phaseDescription" class="lead"></p>
             <div class="week-controls" aria-label="Week kiezen">
-              <button id="previousWeek" class="round-button" aria-label="Vorige week">â†</button>
+              <button id="previousWeek" class="round-button" aria-label="Vorige week">←</button>
               <span id="weekCounter">1 van 12</span>
-              <button id="nextWeek" class="round-button" aria-label="Volgende week">â†’</button>
+              <button id="nextWeek" class="round-button" aria-label="Volgende week">→</button>
             </div>
           </div>
           <div class="progress-orb" id="weekProgressOrb">
@@ -63,7 +63,7 @@
       </section>
 
       <section id="workoutView" class="view" aria-labelledby="workoutTitle">
-        <button class="text-button back-button" data-go="home">â† Overzicht</button>
+        <button class="text-button back-button" data-go="home">← Overzicht</button>
         <div class="workout-heading">
           <div>
             <p id="workoutMeta" class="eyebrow"></p>
@@ -93,7 +93,7 @@
         <article class="chart-card">
           <div class="section-heading tight"><div><p class="eyebrow">Per week</p><h2>Trainingsvolume</h2></div></div>
           <div id="volumeChart" class="volume-chart"></div>
-          <p class="chart-note">Volume = gewicht Ã— herhalingen. Alleen ingevulde en afgevinkte sets tellen mee.</p>
+          <p class="chart-note">Volume = gewicht × herhalingen. Alleen ingevulde en afgevinkte sets tellen mee.</p>
         </article>
         <div class="section-heading">
           <div><p class="eyebrow">Logboek</p><h2>Laatste trainingen</h2></div>
@@ -117,14 +117,14 @@
           <ol>
             <li>Kies een gewicht waarmee je de voorgeschreven herhalingen technisch goed haalt.</li>
             <li>Haal je alle sets aan de bovenkant van de herhalingsrange met de bedoelde RIR? Verhoog de volgende keer licht.</li>
-            <li>Richtlijn: +1â€“2 kg per dumbbell of +2,5â€“5% op de FT2. Bij isolatie-oefeningen mag Ã©Ã©n extra herhaling ook progressie zijn.</li>
-            <li>Week 4 en 8 zijn herstelweken: minder sets en ruim vÃ³Ã³r falen stoppen.</li>
+            <li>Richtlijn: +1–2 kg per dumbbell of +2,5–5% op de FT2. Bij isolatie-oefeningen mag één extra herhaling ook progressie zijn.</li>
+            <li>Week 4 en 8 zijn herstelweken: minder sets en ruim vóór falen stoppen.</li>
           </ol>
         </article>
         <article class="content-card">
           <h2>Warming-up & herstel</h2>
-          <p>Start elke training met 6â€“8 minuten rustig fietsen op de Stages SB20. Doe daarna Ã©Ã©n of twee lichte aanloopsets voor de eerste grote oefening. Deze staan niet in je werksets en hoef je niet te loggen.</p>
-          <p>Slaap waar mogelijk 7â€“9 uur en mik voor spieropbouw op circa 1,6â€“2,0 gram eiwit per kilogram lichaamsgewicht per dag.</p>
+          <p>Start elke training met 6–8 minuten rustig fietsen op de Stages SB20. Doe daarna één of twee lichte aanloopsets voor de eerste grote oefening. Deze staan niet in je werksets en hoef je niet te loggen.</p>
+          <p>Slaap waar mogelijk 7–9 uur en mik voor spieropbouw op circa 1,6–2,0 gram eiwit per kilogram lichaamsgewicht per dag.</p>
         </article>
         <article class="content-card">
           <h2>Pijnsignaal</h2>
@@ -134,8 +134,8 @@
     </main>
 
     <nav class="bottom-nav" aria-label="Hoofdnavigatie">
-      <button class="nav-button active" data-view="home"><span>â–¦</span>Schema</button>
-      <button class="nav-button" data-view="progress"><span>â†—</span>Voortgang</button>
+      <button class="nav-button active" data-view="home"><span>▦</span>Schema</button>
+      <button class="nav-button" data-view="progress"><span>↗</span>Voortgang</button>
       <button class="nav-button" data-view="info"><span>i</span>Uitleg</button>
     </nav>
   </div>
@@ -148,7 +148,7 @@
       <div id="timerDisplay" class="timer-display">01:30</div>
       <div class="timer-progress"><span id="timerBar"></span></div>
       <div class="timer-actions">
-        <button id="timerMinus" class="secondary-button">âˆ’15 sec</button>
+        <button id="timerMinus" class="secondary-button">−15 sec</button>
         <button id="timerStop" class="primary-button">Klaar</button>
         <button id="timerPlus" class="secondary-button">+15 sec</button>
       </div>
@@ -160,4 +160,3 @@
   <script src="./app.js"></script>
 </body>
 </html>
-
